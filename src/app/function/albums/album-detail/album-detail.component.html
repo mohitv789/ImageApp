@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h1>{{ album.title }}</h1>
+    <h5>{{ album.owner }}</h5>
+    <h5>{{ album.published_on }}</h5>
+  </div>
+</div>
+<mat-accordion multi="true">
+  <mat-expansion-panel *ngFor="let image of album.images">
+    <mat-expansion-panel-header>
+      <h3>{{ image.name }}</h3>
+
+    </mat-expansion-panel-header>
+    <p>{{image.description}}</p>
+    <div>
+      <img [src]="image.imagePath" [alt]="image.name">
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
