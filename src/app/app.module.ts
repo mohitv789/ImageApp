@@ -23,10 +23,25 @@ import { DropdownDirective } from './shared/dropdown.directive';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { AlbumDialogue } from './function/images/image-detail/album-dialogue.component';
+import { AlbumDialogueItem } from './function/images/image-detail/album-dialogue-item/album-dialogue-item.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ImagePostComponent } from './function/image-post/image-post.component';
+import { ImagePostListComponent } from './function/image-post/image-post-list/image-post-list.component';
+import { ImagePostDetailComponent } from './function/image-post/image-post-detail/image-post-detail.component';
+import { ImagePostItemComponent } from './function/image-post/image-post-list/image-post-item/image-post-item.component';
+import { ImagePostEditComponent } from './function/image-post/image-post-edit/image-post-edit.component';
+import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
+import { ProfileStartComponent } from './profile/profile-start/profile-start.component';
+
 
 @NgModule({
   declarations: [
@@ -45,11 +60,23 @@ import { HttpClientModule } from '@angular/common/http';
     AlbumStartComponent,
     AlbumDetailComponent,
     AlbumEditComponent,
-    DropdownDirective
+    DropdownDirective,
+    AlbumDialogue,
+    AlbumDialogueItem,
+    ProfileComponent,
+    ImagePostComponent,
+    ImagePostListComponent,
+    ImagePostDetailComponent,
+    ImagePostItemComponent,
+    ImagePostEditComponent,
+    ProfileDetailComponent,
+    ProfileEditComponent,
+    ProfileStartComponent
   ],
   imports: [
     CoreModule,
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -60,9 +87,15 @@ import { HttpClientModule } from '@angular/common/http';
     MatToolbarModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    HttpClientModule
+    MatCarouselModule,
+    MatDialogModule,
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
+  entryComponents: [
+    AlbumDialogue
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

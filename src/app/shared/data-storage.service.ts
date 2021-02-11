@@ -4,14 +4,17 @@ import { map, tap} from 'rxjs/operators';
 import { FunctionService } from '../function/function.service';
 import { Image } from '../function/images/image.model';
 import { Album } from '../function/albums/album.model';
+import { Profile } from '../profile/profile.model';
+import { ProfileService } from '../profile/profile.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService implements OnInit{
   token: string;
-  
+
   constructor(
     private http: HttpClient,
-    private functionService: FunctionService
+    private functionService: FunctionService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit() {}
@@ -98,5 +101,24 @@ export class DataStorageService implements OnInit{
           this.functionService.setAlbums(albums);
         })
       );
+  }
+
+
+  getYourProfile() {
+    this.token = JSON.parse(localStorage.getItem('token'));
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this.http
+      .get<Profile>(
+        'http://localhost:8000/api/profile/',
+        httpOptions
+      )
+      .pipe(
+        tap(profile => {
+          this.profileService.setProfile(profile);
+        })
+      )
   }
 }

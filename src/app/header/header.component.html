@@ -12,6 +12,9 @@
         <li routerLinkActive="active" *ngIf="isAuthenticated">
           <a routerLink="/app/albums">Albums</a>
         </li>
+        <li routerLinkActive="active" *ngIf="isAuthenticated">
+          <a routerLink="/profile">Profile</a>
+        </li>
         <li routerLinkActive="active" *ngIf="!isAuthenticated">
           <a routerLink="/auth">Authenticate</a>
         </li>

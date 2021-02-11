@@ -11,6 +11,16 @@ import { ImageDetailComponent } from './function/images/image-detail/image-detai
 import { ImageEditComponent } from './function/images/image-edit/image-edit.component';
 import { ImageStartComponent } from './function/images/image-start/image-start.component';
 import { ImagesComponent } from './function/images/images.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileStartComponent } from './profile/profile-start/profile-start.component';
+import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
+import { ImagePostComponent } from './function/image-post/image-post.component';
+import { ImagePostEditComponent } from './function/image-post/image-post-edit/image-post-edit.component';
+import { ImagePostDetailComponent } from './function/image-post/image-post-detail/image-post-detail.component';
+
+
+
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/app', pathMatch: 'full' },
@@ -27,7 +37,18 @@ const appRoutes: Routes = [
       { path: ':id', component: AlbumDetailComponent },
       { path: ':id/edit', component: AlbumEditComponent },
     ] },
-  ] },
+    { path: 'image-post', component: ImagePostComponent, children: [
+      { path: 'new', component: ImagePostEditComponent },
+      { path: ':id', component: ImagePostDetailComponent },
+      { path: ':id/edit', component: ImagePostEditComponent },
+      ] },
+    ]
+  },
+    { path: 'profile', component: ProfileComponent, children: [
+      { path: '', component: ProfileStartComponent },
+      { path: ':id', component: ProfileDetailComponent },
+      { path: ':id/edit', component: ProfileEditComponent },
+    ] },
   {
     path: 'auth',
     loadChildren: () =>AuthModule

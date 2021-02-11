@@ -3,7 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Album } from '../../albums/album.model';
 import { FunctionService } from '../../function.service';
+import { DataStorageService } from '../../../shared/data-storage.service';
 import { Image } from '../image.model';
+import { Profile } from "../../../profile/profile.model"
 
 @Component({
   selector: 'app-image-list',
@@ -17,7 +19,7 @@ export class ImageListComponent implements OnInit {
 
   constructor(private functionService: FunctionService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,) {
   }
 
   ngOnInit() {
@@ -29,7 +31,6 @@ export class ImageListComponent implements OnInit {
       );
     this.images = this.functionService.getImages();
     this.albums = this.functionService.getAlbums();
-    console.log(this.albums)
   }
 
   onNewImage() {
