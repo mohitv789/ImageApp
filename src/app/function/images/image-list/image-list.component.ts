@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Album } from '../../albums/album.model';
 import { FunctionService } from '../../function.service';
-import { DataStorageService } from '../../../shared/data-storage.service';
 import { Image } from '../image.model';
 import { Profile } from "../../../profile/profile.model"
 

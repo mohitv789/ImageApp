@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FunctionService } from '../function.service';
 import { Album } from './album.model';
+import { DataStorageService } from '../../shared/data-storage.service';
 
 @Component({
   selector: 'app-albums',
@@ -9,9 +10,13 @@ import { Album } from './album.model';
 })
 export class AlbumsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ds: DataStorageService) { }
 
   ngOnInit() {
+    if (this.ds.firstLoad) {
+      this.ds.fetchAlbums().subscribe();
+      this.ds.firstLoad = false;
+    }
   }
 
 }

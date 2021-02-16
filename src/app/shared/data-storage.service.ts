@@ -10,6 +10,7 @@ import { ProfileService } from '../profile/profile.service';
 @Injectable({ providedIn: 'root' })
 export class DataStorageService implements OnInit{
   token: string;
+  firstLoad = true;
 
   constructor(
     private http: HttpClient,
@@ -18,24 +19,25 @@ export class DataStorageService implements OnInit{
   ) {}
 
   ngOnInit() {}
-
-  storeImages() {
-    const images = this.functionService.getImages();
-    this.token = JSON.parse(localStorage.getItem('token'));
-    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
-    const httpOptions = {
-      headers: headers_object
-    };
-    this.http
-      .put(
-        'http://localhost:8000/api/images/',
-        images,
-        httpOptions
-      )
-      .subscribe(response => {
-        console.log(response);
-      });
-  }
+  //
+  // storeImages() {
+  //   const images = this.functionService.getImages();
+  //   this.token = JSON.parse(localStorage.getItem('token'));
+  //   var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
+  //   const httpOptions = {
+  //     'Content-Type': 'application/json',
+  //     headers: headers_object
+  //   };
+  //   this.http
+  //     .post(
+  //       'http://localhost:8000/api/images/',
+  //       images,
+  //       httpOptions
+  //     )
+  //     .subscribe(response => {
+  //       console.log(response);
+  //     });
+  // }
 
   fetchImages() {
     this.token = JSON.parse(localStorage.getItem('token'));
@@ -62,24 +64,26 @@ export class DataStorageService implements OnInit{
       );
   }
 
-  storeAlbums() {
-    const albums = this.functionService.getAlbums();
-    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
-    const httpOptions = {
-      headers: headers_object
-    };
-    this.http
-      .put(
-        'http://localhost:8000/api/albums/',
-        albums,
-        httpOptions
-      )
-      .subscribe(response => {
-        console.log(response);
-      });
-  }
+  // storeAlbums() {
+  //   const albums = this.functionService.getAlbums();
+  //   var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
+  //   const httpOptions = {
+  //     'Content-Type': 'application/json',
+  //     headers: headers_object
+  //   };
+  //   this.http
+  //     .post(
+  //       'http://localhost:8000/api/albums/',
+  //       albums,
+  //       httpOptions
+  //     )
+  //     .subscribe(response => {
+  //       console.log(response);
+  //     });
+  // }
 
   fetchAlbums() {
+    this.token = JSON.parse(localStorage.getItem('token'));
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
     const httpOptions = {
       headers: headers_object

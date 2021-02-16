@@ -10,11 +10,11 @@ import { DataStorageService } from '../shared/data-storage.service';
 export class HeaderComponent {
   isAuthenticated = false;
   private userSub: Subscription;
-  
+
 
   constructor(
+    private authService: AuthService,
     private dataStorageService: DataStorageService,
-    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -25,18 +25,18 @@ export class HeaderComponent {
     });
   }
 
-  onSaveImageData() {
-    this.dataStorageService.storeImages();
-  }
-
+  // onSaveImageData() {
+  //   this.dataStorageService.storeImages();
+  // }
+  //
   onFetchImageData() {
     this.dataStorageService.fetchImages().subscribe();
   }
-
-  onSaveAlbumData() {
-    this.dataStorageService.storeAlbums();
-  }
-
+  //
+  // onSaveAlbumData() {
+  //   this.dataStorageService.storeAlbums();
+  // }
+  //
   onFetchAlbumData() {
     this.dataStorageService.fetchAlbums().subscribe();
   }

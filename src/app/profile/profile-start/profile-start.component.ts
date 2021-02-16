@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DataStorageService } from "../../shared/data-storage.service"
 
 @Component({
   selector: 'app-profile-start',
@@ -8,13 +7,12 @@ import { DataStorageService } from "../../shared/data-storage.service"
 })
 export class ProfileStartComponent implements OnInit {
 
-  constructor(private dataStorageService: DataStorageService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   onFetchProfile() {
-    this.dataStorageService.getYourProfile().subscribe();
   }
 
 }
