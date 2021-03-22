@@ -9,7 +9,6 @@ import { DataStorageService } from '../../shared/data-storage.service';
   styleUrls: ['./albums.component.css']
 })
 export class AlbumsComponent implements OnInit {
-
   constructor(private ds: DataStorageService) { }
 
   ngOnInit() {
