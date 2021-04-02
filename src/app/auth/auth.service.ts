@@ -8,6 +8,7 @@ import { User } from './user.model';
 export interface AuthResponseData {
   token: string;
 }
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
@@ -60,25 +61,25 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  // autoLogin() {
-  //   const userData: {
-  //     token: string;
-  //   } = JSON.parse(localStorage.getItem('token'));
-  //   if (!userData) {
-  //     return;
-  //   }
-  //   const loadedUser = new User(
-  //     userData.token,
-  //   );
-  //
-  //   if (loadedUser.token) {
-  //     this.user.next(loadedUser);
-  //     // const expirationDuration =
-  //     //   new Date(userData._tokenExpirationDate).getTime() -
-  //     //   new Date().getTime();
-  //     // this.autoLogout(expirationDuration);
-  //   }
-  // }
+  autoLogin() {
+    const userData: {
+      token: string;
+    } = JSON.parse(localStorage.getItem('token'));
+    if (!userData) {
+      return;
+    }
+    const loadedUser = new User(
+      userData.token,
+    );
+
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+      // const expirationDuration =
+      //   new Date(userData._tokenExpirationDate).getTime() -
+      //   new Date().getTime();
+      // this.autoLogout(expirationDuration);
+    }
+  }
 
   private handleAuthentication(
     token: string

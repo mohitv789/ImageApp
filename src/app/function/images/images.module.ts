@@ -13,6 +13,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AlbumDialogueComponent } from './image-detail/image-detail.component'
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
+import { ImagePostComponent } from './image-detail/image-post/image-post.component';
+import { ImagePostListComponent } from './image-detail/image-post/image-post-list/image-post-list.component';
+import { ImagePostDetailComponent } from './image-detail/image-post/image-post-detail/image-post-detail.component';
+import { ImagePostItemComponent } from './image-detail/image-post/image-post-list/image-post-item/image-post-item.component';
+import { ImagePostEditComponent } from './image-detail/image-post/image-post-edit/image-post-edit.component';
+
+
 @NgModule({
   declarations: [
     ImagesComponent,
@@ -21,7 +28,12 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
     ImageItemComponent,
     ImageStartComponent,
     ImageEditComponent,
-    AlbumDialogueComponent
+    AlbumDialogueComponent,
+    ImagePostComponent,
+    ImagePostListComponent,
+    ImagePostDetailComponent,
+    ImagePostItemComponent,
+    ImagePostEditComponent,
   ],
   imports: [
     RouterModule,

@@ -1,10 +1,12 @@
 import { Component, OnInit,Inject, Output, Input, EventEmitter } from '@angular/core';
 import { MatDialog,MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Album } from '../../albums/album.model';
 import { FunctionService } from '../../function.service';
 import { Image } from '../image.model';
-
+import { Post } from './image-post/post.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'album-dialogue-item',
@@ -40,6 +42,9 @@ export class ImageDetailComponent implements OnInit {
   slides:any = [];
   images: Image[];
   album: Album;
+  posts: Post[];
+  subscription: Subscription;
+
   @Input() albumSelected: Album;
   @Output() imageIndex;
 
@@ -48,6 +53,7 @@ export class ImageDetailComponent implements OnInit {
               private router: Router,
               public dialog: MatDialog,
               public dialogRef: MatDialogRef<AlbumDialogueComponent>,
+              private ds : DataStorageService,
               @Inject(MAT_DIALOG_DATA) public data: Album) {
   }
 
@@ -67,6 +73,7 @@ export class ImageDetailComponent implements OnInit {
       this.slides.push([album.title,album.owner,album.published_on])
     }
   }
+
   cancel() {
     this.dialogRef.close({ data: false })
   }
@@ -91,18 +98,10 @@ export class ImageDetailComponent implements OnInit {
         this.router.navigate([''], {relativeTo: this.route});
       }
     });
-
-
   }
 
-  // onEditImage() {
-  //   this.router.navigate(['edit'], {relativeTo: this.route});
-  // }
-
-  // onDeleteImage() {
-  //   this.functionService.deleteImage(this.id);
-  //   this.router.navigate(['/app/images']);
-  // }
-
+  onFetchPostData() {
+    this.ds.getPostFeed().subscribe();;
+  }
 
 }

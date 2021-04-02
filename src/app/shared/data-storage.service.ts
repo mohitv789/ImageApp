@@ -4,6 +4,7 @@ import { map, tap} from 'rxjs/operators';
 import { FunctionService } from '../function/function.service';
 import { Image } from '../function/images/image.model';
 import { Album } from '../function/albums/album.model';
+import { Post } from '../function/images/image-detail/image-post/post.model';
 import { Profile } from '../profile/profile.model';
 import { ProfileService } from '../profile/profile.service';
 
@@ -108,7 +109,7 @@ export class DataStorageService implements OnInit{
   }
 
 
-  getYourProfile() {
+  getProfile() {
     this.token = JSON.parse(localStorage.getItem('token'));
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
     const httpOptions = {
@@ -116,7 +117,7 @@ export class DataStorageService implements OnInit{
     };
     return this.http
       .get<Profile>(
-        'http://localhost:8000/api/profile/',
+        'http://localhost:8000/profile/',
         httpOptions
       )
       .pipe(
@@ -124,5 +125,31 @@ export class DataStorageService implements OnInit{
           this.profileService.setProfile(profile);
         })
       )
+  }
+
+
+  getPostFeed() {
+    this.token = JSON.parse(localStorage.getItem('token'));
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this.http
+      .get<Post[]>(
+        'http://localhost:8000/api/posts/',
+        httpOptions
+      )
+      .pipe(
+        map(posts => {
+          return posts.map(post => {
+            return {
+              ...post
+            };
+          });
+        }),
+        tap(posts => {
+          this.functionService.setPosts(posts);
+        })
+      );
   }
 }
