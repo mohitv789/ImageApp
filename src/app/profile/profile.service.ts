@@ -4,14 +4,14 @@ import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from "../auth/auth.service";
 import { Profile } from "./profile.model";
-import { FunctionService } from "../function/function.service"
+import { DataStorageService } from "../shared/data-storage.service"
 
 
 @Injectable()
 export class ProfileService {
   payload: any;
-  private profile: Profile;
-  constructor(private functionService: FunctionService, private authService: AuthService) {}
+  public profile: Profile;
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.payload = this.parseJwt();
@@ -28,8 +28,12 @@ export class ProfileService {
     return JSON.parse(jsonPayload);
   };
 
-  setProfile(profile) {
+  setProfile(profile: Profile) {
     this.profile = profile;
+  }
+
+  getProfile() {
+    return this.profile;
   }
 
 }

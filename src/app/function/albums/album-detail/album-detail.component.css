@@ -1,3 +1,7 @@
 .mat-accordion .mat-expansion-panel{
   margin: 1rem auto;
 }
+.ItemDecoration {
+  margin : 2px;
+  padding : 5px;
+}

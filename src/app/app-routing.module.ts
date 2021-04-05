@@ -21,7 +21,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
 import { ImagesModule } from "./function/images/images.module"
 import { AlbumsModule } from "./function/albums/albums.module"
-// import { ProfileModule } from "./profile/profile.module"
+import { ProfileModule } from "./profile/profile.module"
 
 const appRoutes: Routes = [
 
@@ -43,13 +43,13 @@ const appRoutes: Routes = [
         )
     },
     //
-    // {
-    //   path: "profile",
-    //   loadChildren: () =>
-    //     import("./profile/profile.module").then(
-    //       m => m.ProfileModule
-    //     )
-    // },
+    {
+      path: "profile",
+      loadChildren: () =>
+        import("./profile/profile.module").then(
+          m => m.ProfileModule
+        )
+    },
 
     {
       path: "auth",

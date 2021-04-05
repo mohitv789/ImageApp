@@ -42,6 +42,10 @@ export class HeaderComponent {
     this.dataStorageService.fetchAlbums().subscribe();
   }
 
+  onFetchProfileData() {
+    this.dataStorageService.getProfileFeed().subscribe();
+  }
+
   onLogout() {
     this.authService.logout();
   }

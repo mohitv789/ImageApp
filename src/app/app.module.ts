@@ -26,10 +26,6 @@ import { AlbumDialogueComponent } from './function/images/image-detail/image-det
     AppComponent,
     HeaderComponent,
     FunctionComponent,
-    ProfileComponent,
-    ProfileDetailComponent,
-    ProfileEditComponent,
-    ProfileStartComponent,
   ],
   imports: [
     CoreModule,

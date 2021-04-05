@@ -3,7 +3,7 @@
     <div class="navbar-header">
       <a routerLink="/" class="navbar-brand">
         <div >
-          <img src="../../assets/logo.png" class="logo-image img-fluid">
+          <img routerLink="/images" src="../../assets/logo.png" class="logo-image img-fluid">
         </div>
     </a>
     </div>
@@ -22,13 +22,14 @@
         <li>
           <a style="cursor: pointer;" *ngIf="isAuthenticated" (click)="onFetchAlbumData()">Fetch Album Data</a>
         </li>
-        <!-- <li routerLinkActive="active" *ngIf="isAuthenticated">
-          <a routerLink="/profile">Profile</a>
-        </li> -->
+
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li routerLinkActive="active" *ngIf="!isAuthenticated">
           <a routerLink="/auth">Authenticate</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="isAuthenticated">
+          <a routerLink="/profile" (click)="onFetchProfileData()">Profile</a>
         </li>
         <li *ngIf="isAuthenticated">
           <a style="cursor: pointer;" (click)="onLogout()">Logout</a>

@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-xs-12">
     <app-album-item
+      class="ItemDecoration shadow p-2 mb-3 bg-white rounded"
       *ngFor="let albumEl of albums; let i = index"
       [album]="albumEl"
       [index]="i"></app-album-item>
   </div>
 </div>
-

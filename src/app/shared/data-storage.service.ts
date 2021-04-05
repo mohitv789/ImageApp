@@ -109,7 +109,7 @@ export class DataStorageService implements OnInit{
   }
 
 
-  getProfile() {
+  getProfileFeed() {
     this.token = JSON.parse(localStorage.getItem('token'));
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
     const httpOptions = {

@@ -6,14 +6,14 @@
   </div>
 </div>
 <mat-accordion multi="true">
-  <mat-expansion-panel *ngFor="let image of album.images">
+  <mat-expansion-panel class="ItemDecoration shadow p-2 bg-white rounded" *ngFor="let image of album.images">
     <mat-expansion-panel-header>
       <h3>{{ image.name }}</h3>
 
     </mat-expansion-panel-header>
     <p>{{image.description}}</p>
     <div>
-      <img [src]="image.imagePath" [alt]="image.name">
+      <img class="img-responsive" style="max-height: 400px;"[src]="image.imagePath" [alt]="image.name">
     </div>
   </mat-expansion-panel>
 </mat-accordion>
