@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class FunctionService {
-  
+
   imagesChanged = new Subject<Image[]>();
   albumsChanged = new Subject<Album[]>();
   postsChanged = new Subject<Post[]>();
@@ -35,6 +35,21 @@ export class FunctionService {
     return this.images[index];
   }
 
+  addImage(image: Image) {
+    this.images.push(image);
+    this.imagesChanged.next(this.images.slice());
+  }
+
+  updateImage(index: number, newImage: Image) {
+    this.images[index] = newImage;
+    this.imagesChanged.next(this.images.slice());
+  }
+
+  deleteImage(index: number) {
+    this.images.splice(index, 1);
+    this.imagesChanged.next(this.images.slice());
+  }
+
   setAlbums(albums: Album[]) {
     this.albums = albums;
     this.albumsChanged.next(this.albums.slice());
@@ -53,6 +68,21 @@ export class FunctionService {
   addToAlbum(image:Image, album: Album) {
     album.images.push(image);
     this.albumChosen.next(album);
+    this.albumsChanged.next(this.albums.slice());
+  }
+
+  addAlbum(album: Album) {
+    this.albums.push(album);
+    this.albumsChanged.next(this.albums.slice());
+  }
+
+  updateAlbum(index: number, newAlbum: Album) {
+    this.albums[index] = newAlbum;
+    this.albumsChanged.next(this.albums.slice());
+  }
+
+  deleteAlbum(index: number) {
+    this.albums.splice(index, 1);
     this.albumsChanged.next(this.albums.slice());
   }
 

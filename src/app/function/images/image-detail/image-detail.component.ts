@@ -24,7 +24,7 @@ export class AlbumDialogueComponent implements OnInit{
     console.log(this.data);
     this.albums = this.data
   }
-  onselectAlbum(album) {
+  onselectAlbum(album: Album) {
     this.selectedAlbum.emit(album);
   }
 }
@@ -46,7 +46,6 @@ export class ImageDetailComponent implements OnInit {
   subscription: Subscription;
 
   @Input() albumSelected: Album;
-  @Output() imageIndex;
 
   constructor(private functionService: FunctionService,
               private route: ActivatedRoute,
@@ -63,11 +62,11 @@ export class ImageDetailComponent implements OnInit {
         (params: Params) => {
           this.id = +params['id'];
           this.image = this.functionService.getImage(this.id);
-          this.imageIndex = this.image.id;
         }
       );
     this.album =  this.albumSelected;
     this.albums = this.functionService.getAlbums();
+    this.posts = this.functionService.getPosts();
     this.image = this.functionService.getImage(this.id);
     for (let album of this.albums){
       this.slides.push([album.title,album.owner,album.published_on])
@@ -82,7 +81,11 @@ export class ImageDetailComponent implements OnInit {
     this.dialogRef.close({ data: this.albumSelected})
   }
 
-  openDialog(image: Image) {
+  onSaveImage() {
+    this.ds.storeImage(this.id);
+  }
+
+  openDialog() {
     const dialogRef = this.dialog.open(AlbumDialogueComponent,{
       width: '60%',
       data: this.functionService.getAlbums()
@@ -100,8 +103,17 @@ export class ImageDetailComponent implements OnInit {
     });
   }
 
+  editMetaData() {
+    this.router.navigate(['edit'], { relativeTo: this.route });
+  }
+
   onFetchPostData() {
-    this.ds.getPostFeed().subscribe();;
+    this.ds.getPostFeed().subscribe();
+    console.log(this.posts);
+  }
+
+  onCodeImage() {
+
   }
 
 }

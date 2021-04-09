@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FunctionService } from '../function.service';
-import { Image } from './image.model';
 import { DataStorageService } from '../../shared/data-storage.service';
 
 
@@ -16,6 +14,7 @@ export class ImagesComponent implements OnInit {
   ngOnInit(){
     if (this.ds.firstLoad) {
       this.ds.fetchImages().subscribe();
+      this.ds.fetchAlbums().subscribe();
       this.ds.firstLoad = false;
     }
   }

@@ -20,25 +20,26 @@ export class DataStorageService implements OnInit{
   ) {}
 
   ngOnInit() {}
-  //
-  // storeImages() {
-  //   const images = this.functionService.getImages();
-  //   this.token = JSON.parse(localStorage.getItem('token'));
-  //   var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
-  //   const httpOptions = {
-  //     'Content-Type': 'application/json',
-  //     headers: headers_object
-  //   };
-  //   this.http
-  //     .post(
-  //       'http://localhost:8000/api/images/',
-  //       images,
-  //       httpOptions
-  //     )
-  //     .subscribe(response => {
-  //       console.log(response);
-  //     });
-  // }
+
+  storeImage(id: number) {
+    const image = this.functionService.getImage(id);
+    this.token = JSON.parse(localStorage.getItem('token'));
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
+    const httpOptions = {
+      method: "post",
+      'Content-Type': 'application/json',
+      headers: headers_object
+    };
+    this.http
+      .post(
+        'http://localhost:8000/api/images/',
+        image,
+        httpOptions
+      )
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
 
   fetchImages() {
     this.token = JSON.parse(localStorage.getItem('token'));

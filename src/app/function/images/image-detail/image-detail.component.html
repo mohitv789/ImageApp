@@ -18,8 +18,19 @@
   </div>
 </div>
 <div class="row">
+  <div class="col-xs-4">
+    <button mat-button (click)="openDialog()">Add to album</button>
+  </div>
+  <div class="col-xs-4">
+    <button mat-button (click)="editMetaData()">Image Properties</button>
+  </div>
+  <div class="col-xs-4">
+    <button mat-button (click)="onSaveImage()">Save Image</button>
+  </div>
+</div>
+<div class="row">
   <div class="col-xs-12">
-    <button mat-button (click)="openDialog(image)">Add to album</button>
+    <button mat-button (click)="onCodeImage()">Code Image</button>
   </div>
 </div>
 <hr>
