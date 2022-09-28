@@ -60,39 +60,6 @@ const appRoutes: Routes = [
 
 ];
 
-// Routes = [
-//   { path: '', redirectTo: '/app', pathMatch: 'full' },
-//   { path: 'app', component: FunctionComponent, children: [
-//     { path: 'images', component: ImagesComponent, children: [
-//       { path: '', component: ImageStartComponent },
-//       { path: 'new', component: ImageEditComponent },
-//       { path: ':id', component: ImageDetailComponent },
-//       { path: ':id/edit', component: ImageEditComponent },
-//     ] },
-//     { path: 'albums', component: AlbumsComponent, children: [
-//       { path: '', component: AlbumStartComponent },
-//       { path: 'new', component: AlbumEditComponent },
-//       { path: ':id', component: AlbumDetailComponent },
-//       { path: ':id/edit', component: AlbumEditComponent },
-//     ] },
-//     { path: 'image-post', component: ImagePostComponent, children: [
-//       { path: 'new', component: ImagePostEditComponent },
-//       { path: ':id', component: ImagePostDetailComponent },
-//       { path: ':id/edit', component: ImagePostEditComponent },
-//       ] },
-//     ]
-//   },
-//     { path: 'profile', component: ProfileComponent, children: [
-//       { path: '', component: ProfileStartComponent },
-//       { path: ':id', component: ProfileDetailComponent },
-//       { path: ':id/edit', component: ProfileEditComponent },
-//     ] },
-//   {
-//     path: 'auth',
-//     loadChildren: () =>AuthModule
-//   }
-// ];
-
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]

@@ -53,8 +53,6 @@ export class FunctionService {
   setAlbums(albums: Album[]) {
     this.albums = albums;
     this.albumsChanged.next(this.albums.slice());
-    console.log(this.images);
-    console.log(this.albums);
   }
 
   getAlbums() {
@@ -63,12 +61,6 @@ export class FunctionService {
 
   getAlbum(index: number) {
     return this.albums[index];
-  }
-
-  addToAlbum(image:Image, album: Album) {
-    album.images.push(image);
-    this.albumChosen.next(album);
-    this.albumsChanged.next(this.albums.slice());
   }
 
   addAlbum(album: Album) {

@@ -4,20 +4,22 @@ import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
-
+import jwt_decode from 'jwt-decode';
 export interface AuthResponseData {
-  token: string;
+  access: string;
+  refresh: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
+  private decoded;
   constructor(private http: HttpClient, private router: Router) {}
 
   signup(email: string, password: string, first_name: string, last_name: string, phone_number: string, age: Number, gender: string) {
     return this.http
       .post<AuthResponseData>(
-        'http://localhost:8000/signup/',
+        'http://localhost:8000/api/signup/',
         {
           email: email,
           first_name: first_name,
@@ -32,7 +34,7 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         tap(resData => {
-          this.handleAuthentication(resData.token)
+          this.handleAuthentication(resData.access)
         })
       );
   }
@@ -40,7 +42,7 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'http://localhost:8000/login/',
+        'http://localhost:8000/api/token/access/',
         {
           email: email,
           password: password,
@@ -50,7 +52,31 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         tap(resData => {
-          this.handleAuthentication(resData.token)
+          console.log(resData.access)
+          this.handleAuthentication(resData.access)
+
+          this.router.navigate(['/api/images']);
+
+        })
+      );
+  }
+
+  reacess(refresh_token : string) {
+    return this.http
+      .post<AuthResponseData>(
+        'http://localhost:8000/api/token/refresh/',
+        {
+          refresh: refresh_token,
+          returnSecureToken: true
+        }
+      )
+      .pipe(
+        catchError(this.handleError),
+        tap(resData => {
+          console.log(resData.access)
+          this.handleAuthentication(resData.access)
+
+
         })
       );
   }
@@ -58,26 +84,35 @@ export class AuthService {
   logout() {
     this.user.next(null);
     this.router.navigate(['/auth']);
-    localStorage.removeItem('token');
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
   }
 
   autoLogin() {
-    const userData: {
-      token: string;
-    } = JSON.parse(localStorage.getItem('token'));
-    if (!userData) {
+    let token = localStorage.getItem('access');
+    let refresh = localStorage.getItem('refresh');
+    if (!!token) {
+      token = token;
+      refresh = refresh;
+    }
+    if (!token) {
       return;
     }
     const loadedUser = new User(
-      userData.token,
+      token,
+
     );
 
     if (loadedUser.token) {
       this.user.next(loadedUser);
-      // const expirationDuration =
-      //   new Date(userData._tokenExpirationDate).getTime() -
-      //   new Date().getTime();
-      // this.autoLogout(expirationDuration);
+      this.decoded = jwt_decode(loadedUser.token);
+      console.log(this.decoded);
+
+      const expirationDuration = new Date(this.decoded.exp).getTime() - new Date().getTime();
+      if (expirationDuration - 300 < 0) {
+        this.reacess(localStorage.getItem('refresh'));
+      }
+
     }
   }
 
@@ -86,7 +121,7 @@ export class AuthService {
   ) {
     const user = new User(token);
     this.user.next(user);
-    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('access', JSON.stringify(token));
   }
 
 
@@ -111,13 +146,15 @@ export class AuthService {
   }
 
   get_token() {
-    const tokenData: {
-      token: string;
-    } = JSON.parse(localStorage.getItem('token'));
-    if (!tokenData) {
-      return;
-    } else {
-      return tokenData.token;
+    let token = localStorage.getItem('token');
+    if (!!token) {
+      return token
     }
   }
+
+  get_loggedin_userid() {
+    return this.decoded["user_id"];
+
+  }
 }
+

@@ -26,4 +26,10 @@ export class AlbumDetailComponent implements OnInit {
         }
       );
   }
+
+
+  editAlbum() {
+    console.log(this.album);
+
+  }
 }

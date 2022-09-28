@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { DataStorageService } from '../shared/data-storage.service';
 import { Album } from './albums/album.model';
 import { FunctionService } from './function.service';
 import { Image } from './images/image.model';
@@ -10,7 +12,7 @@ import { Image } from './images/image.model';
 })
 export class FunctionComponent implements OnInit {
   constructor() { }
-
-  ngOnInit(){}
+  ngOnInit(){
+  }
 
 }

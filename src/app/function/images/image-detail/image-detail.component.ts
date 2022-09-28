@@ -39,7 +39,6 @@ export class ImageDetailComponent implements OnInit {
   image: Image;
   id: number;
   albums: Album[];
-  slides:any = [];
   images: Image[];
   album: Album;
   posts: Post[];
@@ -52,8 +51,7 @@ export class ImageDetailComponent implements OnInit {
               private router: Router,
               public dialog: MatDialog,
               public dialogRef: MatDialogRef<AlbumDialogueComponent>,
-              private ds : DataStorageService,
-              @Inject(MAT_DIALOG_DATA) public data: Album) {
+              private ds : DataStorageService,) {
   }
 
   ngOnInit() {
@@ -68,9 +66,6 @@ export class ImageDetailComponent implements OnInit {
     this.albums = this.functionService.getAlbums();
     this.posts = this.functionService.getPosts();
     this.image = this.functionService.getImage(this.id);
-    for (let album of this.albums){
-      this.slides.push([album.title,album.owner,album.published_on])
-    }
   }
 
   cancel() {
@@ -85,24 +80,6 @@ export class ImageDetailComponent implements OnInit {
     this.ds.storeImage(this.id);
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(AlbumDialogueComponent,{
-      width: '60%',
-      data: this.functionService.getAlbums()
-    });
-    console.log(this.functionService.getAlbums());
-
-    dialogRef.afterClosed().subscribe(result => {
-
-      if (this.albumSelected.title === result.title) {
-        this.functionService.addToAlbum(this.image,this.albumSelected);
-        console.log(this.image.name,this.albumSelected.title);
-      } else {
-        this.router.navigate([''], {relativeTo: this.route});
-      }
-    });
-  }
-
   editMetaData() {
     this.router.navigate(['edit'], { relativeTo: this.route });
   }
@@ -112,8 +89,5 @@ export class ImageDetailComponent implements OnInit {
     console.log(this.posts);
   }
 
-  onCodeImage() {
-
-  }
 
 }
