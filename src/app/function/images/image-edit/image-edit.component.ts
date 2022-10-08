@@ -46,7 +46,9 @@ export class ImageEditComponent implements OnInit {
     let imageName = '';
     let imagePath = '';
     let imageDescription = '';
-    let imageOwner = new User(localStorage.getItem("access"));
+    let imageOwner = null;
+    let decoded = jwt_decode(localStorage.getItem("access"));
+
     if (this.editMode) {
       const image = this.functionService.getImage(this.id);
         imageName = image.name;

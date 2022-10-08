@@ -1,5 +1,4 @@
 import { Component, OnInit,Inject, Output, Input, EventEmitter } from '@angular/core';
-import { MatDialog,MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Album } from '../../albums/album.model';
@@ -7,27 +6,6 @@ import { FunctionService } from '../../function.service';
 import { Image } from '../image.model';
 import { Post } from './image-post/post.model';
 import { Subscription } from 'rxjs';
-
-@Component({
-  selector: 'album-dialogue-item',
-  templateUrl: './album-dialogue-item/album-dialogue-item.html',
-})
-export class AlbumDialogueComponent implements OnInit{
-
-  @Output() selectedAlbum = new EventEmitter();
-  albums: Album[];
-  constructor(
-    public dialogRef: MatDialogRef<AlbumDialogueComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
-
-  ngOnInit() {
-    console.log(this.data);
-    this.albums = this.data
-  }
-  onselectAlbum(album: Album) {
-    this.selectedAlbum.emit(album);
-  }
-}
 
 
 @Component({
@@ -49,8 +27,6 @@ export class ImageDetailComponent implements OnInit {
   constructor(private functionService: FunctionService,
               private route: ActivatedRoute,
               private router: Router,
-              public dialog: MatDialog,
-              public dialogRef: MatDialogRef<AlbumDialogueComponent>,
               private ds : DataStorageService,) {
   }
 
@@ -68,13 +44,6 @@ export class ImageDetailComponent implements OnInit {
     this.image = this.functionService.getImage(this.id);
   }
 
-  cancel() {
-    this.dialogRef.close({ data: false })
-  }
-
-  confirm() {
-    this.dialogRef.close({ data: this.albumSelected})
-  }
 
   onSaveImage() {
     this.ds.storeImage(this.id);
@@ -84,10 +53,10 @@ export class ImageDetailComponent implements OnInit {
     this.router.navigate(['edit'], { relativeTo: this.route });
   }
 
-  onFetchPostData() {
-    this.ds.getPostFeed().subscribe();
-    console.log(this.posts);
-  }
+  // onFetchPostData() {
+  //   this.ds.getPostFeed().subscribe();
+  //   console.log(this.posts);
+  // }
 
 
 }

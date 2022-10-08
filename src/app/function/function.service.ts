@@ -3,8 +3,6 @@ import { Subject } from 'rxjs/Subject';
 import { Album } from './albums/album.model';
 import { Image } from './images/image.model';
 import { Post } from './images/image-detail/image-post/post.model';
-import { Observable, Subscription } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class FunctionService {
@@ -14,7 +12,7 @@ export class FunctionService {
   postsChanged = new Subject<Post[]>();
   albumChosen = new Subject<Album>();
 
-  constructor(public dialog: MatDialog) {}
+  constructor() {}
 
   private images: Image[] = [];
   private albums: Album[] = [];
