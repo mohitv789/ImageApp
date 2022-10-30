@@ -24,25 +24,24 @@ export class DataStorageService implements OnInit{
   ) {}
 
   ngOnInit() {
-    this.authService.get_token();
-    console.log(this.authService.get_token());
+    // this.authService.get_token();
+    // console.log(this.authService.get_token());
 
   }
 
   fetchImages() {
-    this.token = JSON.parse(localStorage.getItem('access'));
-    const httpOptions = {
-      headers: new HttpHeaders(
-      {
-         'Authorization': 'Bearer ' + this.token,
-         'Content-Type': 'application/json'
-      })
-    }
-    console.log(httpOptions)
+    // this.token = JSON.parse(localStorage.getItem('access'));
+    // const httpOptions = {
+    //   headers: new HttpHeaders(
+    //   {
+    //      'Authorization': 'Bearer ' + this.token,
+    //      'Content-Type': 'application/json'
+    //   })
+    // }
+    // console.log(httpOptions)
     return this.http
     .get<Image[]>(
-      'http://localhost:8000/api/images/',
-      httpOptions
+      'http://localhost:8000/api/images/'
     )
     .pipe(
       map(images => {
@@ -62,19 +61,17 @@ export class DataStorageService implements OnInit{
 
   storeImage(id: number) {
     const image = this.functionService.getImage(id);
-    this.token = JSON.parse(localStorage.getItem('access'));
-    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
-    const httpOptions = {
-      method: "post",
-      'Content-Type': 'application/json',
-      headers: headers_object
-    };
-    console.log(httpOptions);
+    // this.token = JSON.parse(localStorage.getItem('access'));
+    // var headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.token);
+    // const httpOptions = {
+    //   method: "post",
+    //   'Content-Type': 'application/json',
+    // };
+    // console.log(httpOptions);
     this.http
       .put(
         'http://localhost:8000/api/images/' + id + '/',
-        image,
-        httpOptions
+        image
       )
       .subscribe(response => {
         console.log(response);
@@ -82,19 +79,18 @@ export class DataStorageService implements OnInit{
   }
   fetchAlbums() {
 
-    let token = localStorage.getItem('access');
-    if (token) {
-      const httpOptions = {
-        headers: new HttpHeaders(
-        {
-           'Authorization': 'Bearer ' + this.token,
-           'Content-Type': 'application/json'
-        })
-    }
+    // let token = localStorage.getItem('access');
+    // if (token) {
+    //   const httpOptions = {
+    //     headers: new HttpHeaders(
+    //     {
+    //        'Authorization': 'Bearer ' + this.token,
+    //        'Content-Type': 'application/json'
+    //     })
+    // }
       return this.http
         .get<Album[]>(
-          'http://localhost:8000/api/albums/',
-          httpOptions
+          'http://localhost:8000/api/albums/'
         )
         .pipe(
           map(albums => {
@@ -110,56 +106,55 @@ export class DataStorageService implements OnInit{
         );
     }
 
-  }
-
-
-  getProfileFeed() {
-    this.token = JSON.parse(localStorage.getItem('access'));
-    const httpOptions = {
-      headers: new HttpHeaders(
-      {
-         'Authorization': 'Bearer ' + this.token,
-         'Content-Type': 'application/json'
-      })
-  }
-    return this.http
-      .get<Profile>(
-        'http://localhost:8000/api/profile/',
-        httpOptions
-      )
-      .pipe(
-        tap(profile => {
-          this.profileService.setProfile(profile);
-        })
-      )
-  }
-
-
-  getPostFeed() {
-    this.token = JSON.parse(localStorage.getItem('access'));
-    const httpOptions = {
-      headers: new HttpHeaders(
-      {
-         'Authorization': 'Bearer ' + this.token,
-         'Content-Type': 'application/json'
-      })
-  }
-    return this.http
-      .get<Post[]>(
-        'http://localhost:8000/api/posts/',
-        httpOptions
-      )
-      .pipe(
-        map(posts => {
-          return posts.map(post => {
-            return {
-              ...post
-            };
-          });
-        }),
-        tap(posts => {
-          this.functionService.setPosts(posts);
-        })
-      );
-  }
 }
+
+
+  // getProfileFeed() {
+  //   // this.token = JSON.parse(localStorage.getItem('access'));
+  // //   const httpOptions = {
+  // //     headers: new HttpHeaders(
+  // //     {
+  // //        'Authorization': 'Bearer ' + this.token,
+  // //        'Content-Type': 'application/json'
+  // //     })
+  // // }
+  //   return this.http
+  //     .get<Profile>(
+  //       'http://localhost:8000/api/profile/',
+  //     )
+  //     .pipe(
+  //       tap(profile => {
+  //         this.profileService.setProfile(profile);
+  //       })
+  //     )
+  // }
+
+
+  // getPostFeed() {
+  //   this.token = JSON.parse(localStorage.getItem('access'));
+  //   const httpOptions = {
+  //     headers: new HttpHeaders(
+  //     {
+  //        'Authorization': 'Bearer ' + this.token,
+  //        'Content-Type': 'application/json'
+  //     })
+  // }
+  //   return this.http
+  //     .get<Post[]>(
+  //       'http://localhost:8000/api/posts/',
+  //       httpOptions
+  //     )
+  //     .pipe(
+  //       map(posts => {
+  //         return posts.map(post => {
+  //           return {
+  //             ...post
+  //           };
+  //         });
+  //       }),
+  //       tap(posts => {
+  //         this.functionService.setPosts(posts);
+  //       })
+  //     );
+  // }
+

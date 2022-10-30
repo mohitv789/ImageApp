@@ -18,7 +18,8 @@ export class ProfileResolverService implements Resolve<Profile> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const profile = this.profileService.getProfile();
     if (!profile) {
-      return this.dataStorageService.getProfileFeed();
+      console.log("Profile not found!");
+
     } else {
       return profile;
     }

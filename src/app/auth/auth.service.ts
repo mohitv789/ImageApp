@@ -49,8 +49,8 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         tap(resData => {
-          console.log(resData.access)
-          this.handleAuthentication(resData.access)
+          // console.log(resData.access)
+          // this.handleAuthentication(resData.access)
 
           this.router.navigate(['/api/images']);
 
@@ -71,7 +71,7 @@ export class AuthService {
         catchError(this.handleError),
         tap(resData => {
           console.log(resData.access)
-          this.handleAuthentication(resData.access)
+          // this.handleAuthentication(resData.access)
 
 
         })
@@ -81,45 +81,47 @@ export class AuthService {
   logout() {
     this.user.next(null);
     this.router.navigate(['/auth']);
-    localStorage.removeItem('access');
-    localStorage.removeItem('refresh');
+    // localStorage.removeItem('access');
+    // localStorage.removeItem('refresh');
   }
 
-  autoLogin() {
-    let token = localStorage.getItem('access');
-    let refresh = localStorage.getItem('refresh');
-    if (!!token) {
-      token = token;
-      refresh = refresh;
-    }
-    if (!token) {
-      return;
-    }
-    const loadedUser = new User(
-      token,
+  // autoLogin() {
+  //   let token = localStorage.getItem('access');
+  //   let refresh = localStorage.getItem('refresh');
+  //   if (!!token) {
+  //     token = token;
+  //     refresh = refresh;
+  //   }
+  //   if (!token) {
+  //     return;
+  //   }
+  //   const loadedUser = new User(
+  //     token,
 
-    );
+  //   );
 
-    if (loadedUser.token) {
-      this.user.next(loadedUser);
-      this.decoded = jwt_decode(loadedUser.token);
-      console.log(this.decoded);
+  //   if (loadedUser.token) {
+  //     this.user.next(loadedUser);
+  //     this.decoded = jwt_decode(loadedUser.token);
+  //     console.log(this.decoded);
 
-      const expirationDuration = new Date(this.decoded.exp).getTime() - new Date().getTime();
-      if (expirationDuration - 300 < 0) {
-        this.reacess(localStorage.getItem('refresh'));
-      }
+  //     const expirationDuration = new Date(this.decoded.exp).getTime() - new Date().getTime();
+  //     if (expirationDuration - 300 < 0) {
+  //       // this.reacess(localStorage.getItem('refresh'));
+  //       console.log("You are going to be logged out!");
 
-    }
-  }
+  //     }
 
-  private handleAuthentication(
-    token: string
-  ) {
-    const user = new User(token);
-    this.user.next(user);
-    localStorage.setItem('access', JSON.stringify(token));
-  }
+  //   }
+  // }
+
+  // private handleAuthentication(
+  //   token: string
+  // ) {
+  //   const user = new User(token);
+  //   this.user.next(user);
+  //   // localStorage.setItem('access', JSON.stringify(token));
+  // }
 
 
 
@@ -142,16 +144,16 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
-  get_token() {
-    let token = localStorage.getItem('token');
-    if (!!token) {
-      return token
-    }
-  }
+  // get_token() {
+  //   let token = localStorage.getItem('token');
+  //   if (!!token) {
+  //     return token
+  //   }
+  // }
 
-  get_loggedin_userid() {
-    return this.decoded["user_id"];
+  // get_loggedin_userid() {
+  //   return this.decoded["user_id"];
 
-  }
+  // }
 }
 

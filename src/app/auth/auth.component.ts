@@ -57,11 +57,11 @@ export class AuthComponent implements OnDestroy {
 
   authObs.subscribe(
     resData => {
-      console.log(resData);
-      let access = resData.access;
-      let refresh = resData.refresh;
-      localStorage.setItem("access" , JSON.stringify(access));
-      localStorage.setItem("refresh" , JSON.stringify(refresh));
+      // console.log(resData);
+      // let access = resData.access;
+      // let refresh = resData.refresh;
+      // localStorage.setItem("access" , JSON.stringify(access));
+      // localStorage.setItem("refresh" , JSON.stringify(refresh));
       this.isLoading = false;
       this.router.navigate(['/images']);
     },

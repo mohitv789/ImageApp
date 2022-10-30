@@ -15,7 +15,7 @@ export class ImagesComponent implements OnInit {
   ngOnInit(){
     if (!!this.ds.firstLoad) {
       this.ds.firstLoad = false;
-      this.authService.get_token()
+      // this.authService.get_token()
     }
   }
 
